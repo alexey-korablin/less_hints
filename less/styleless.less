@@ -1,0 +1,42 @@
+/*Часть 1
+Объявление переменных для фоновой картинки @bg-path и цвета фона @bg-color
+*/
+@bg-path: '../lib/img/Less-CSS-Preprocessor-Toolbox.jpg';
+@bg-color: #1d365e;
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/*Применение переменных для обозначения цвета фона и фонового изображения*/
+body {
+  background: @bg-color url(@bg-path) 50% 25% no-repeat;
+}
+/*Часть 2
+Глобальная переменная для цвета фона элемента
+*/
+@base-color: rgb(110, 27, 255);
+
+.color-primary {
+    /* Локальная переменная для цвета фона переменной. Она будет применена */
+    @base-color: red;
+    background-color: @base-color;
+}
+
+/*Часть3
+
+*/
+@base-color: rgb(110, 27, 255);
+@distance: 180;
+@complementary-color: spin(@base-color, @distance);
+
+.color-primary {
+    background-color: @base-color;
+}
+
+.color-complementary {
+    background-color: @complementary-color;
+}
