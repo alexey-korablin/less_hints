@@ -15,28 +15,112 @@ html, body {
 body {
   background: @bg-color url(@bg-path) 50% 25% no-repeat;
 }
+/*
+Общие стили для элементов
+*/
+.palette{
+  width: 100%;
+  margin:  6.0em auto;
+  text-align: center;
+  font-family: Verdana, Geneva, sans-serif;
+  color: #eee;
+}
+figcaption{
+  margin: 0.5em 0;
+}
+.color{
+  display: inline-block;
+  margin-top: 1.1em;
+  width: 5.5em;
+  height: 5.5em;
+  vertical-align: middle;
+  line-height: 5.5;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+}
+
 /*Часть 2
 Глобальная переменная для цвета фона элемента
 */
-@base-color: rgb(110, 27, 255);
-
-.color-primary {
-    /* Локальная переменная для цвета фона переменной. Она будет применена */
-    @base-color: red;
-    background-color: @base-color;
+@base-color: #2969b0;
+.palette0{
+  margin: 31.0em auto 6.0em;
+}
+.color-primary0{
+  /* Применение глобальной переменной для цвета фона элемента span */
+  background-color: @base-color;
 }
 
-/*Часть3
-
+/*Часть 3
+Глобальная и локальная переменная для цвета фона элемента span
+Глобальная переменная @base-color: #2969b0; задана в части 2
+Задаем локальную переменную для цвета фона элемента span
 */
-@base-color: rgb(110, 27, 255);
-@distance: 180;
-@complementary-color: spin(@base-color, @distance);
-
-.color-primary {
-    background-color: @base-color;
+.color-primary1{
+  /* Применение глобальной переменной для цвета фона элемента span */
+  @base-color: #e14938;
+  background-color: @base-color;
 }
 
-.color-complementary {
-    background-color: @complementary-color;
+/*Часть 4
+Применеие комплиментарного цвета фона к элементу span
+Глобальная переменная @base-color: #2969b0; задана в части 2
+Глобальная переменная @distance0 указывает на какое количество градусов нужно сделать поворот в цветовом колесе от исходного цвета
+Глобальная переменная @complementary-color применяет фукцию spin, которая принимает первым параметром цвет, а вторым - угол поворота
+*/
+@distance0: 180;
+@complementary-color: spin(@base-color, @distance0);
+
+.color-primary2{
+  background-color: @base-color;
+}
+/*
+Применение комплиментарного* цвета к фону элемента span
+Комплиментарный цвет - противоположный цвет от исходного, на цветовом колесе (угол поворота - 180 граудусов)
+*/
+.color-complementary{
+  background-color: @complementary-color;
+}
+
+/*Часть 5
+Избежать повторения написания селекторов с помощью less можно используя вложенность правил
+Вместо такой записи:
+.palette-item{ display: inline-block; }
+.palette-item .color{ border-radius: 0; }
+Будет использоваться такая *
+*/
+.color-primary{
+  background-color: @base-color;
+}
+/* *Демонстрация тут: */
+.palette-item3{
+  display: inline-block;
+  /* вложенное правило */
+  .color{
+      border-radius: 0;    
+  }
+}
+/*Часть 6
+Вложенные правила можно использовать для удобного структурирования цветов
+В данном примере происходит вычисление цвета для переменной @error-color (о функции spin см Ч.4)
+*/
+@distance1: 60;
+@error-color: spin(@base-color, @distance1);
+/*
+Для классов color-primary и color-error применяются различные цвета. Правила объединяются в общем классе .color
+Если перед вложенным правилом поставить знак &, то оно станет родственным родительскому, и LESS подставит родительский селектор вместо амперсанда.
+*/
+.color{
+  &-primary6 {
+      background-color: @base-color;
+  }
+  &-error6 {
+      background-color: @error-color;
+  }
+}
+.palette-item6 {
+  display: inline-block;
+  .color {
+      margin: 0.5em;
+  }
 }
