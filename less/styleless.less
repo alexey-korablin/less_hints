@@ -100,6 +100,7 @@ figcaption{
       border-radius: 0;    
   }
 }
+
 /*Часть 6
 Вложенные правила можно использовать для удобного структурирования цветов
 В данном примере происходит вычисление цвета для переменной @error-color (о функции spin см Ч.4)
@@ -123,4 +124,103 @@ figcaption{
   .color {
       margin: 0.5em;
   }
+}
+
+/*Часть 7
+Вычисление цветов с помощью функции spin
+*/
+@distance: 60;
+@error-color: spin(@base-color, @distance);
+
+@invert-distance: @distance * -1;
+@info-color: spin(@base-color, @invert-distance);
+
+.color {
+    &-primary7 {
+        background-color: @base-color;
+    }
+    &-error7 {
+        background-color: @error-color;
+    }
+    &-info7 {
+        background-color: @info-color; 
+    }
+}
+
+.palette-item7 {
+    display: inline-block;
+    .color {
+        margin: 0.5em;
+    }
+}
+
+/*Часть 8
+Вычисление цветов с помощью функции spin. Вычисляются два комплиментарных цвета: для пар info - warning и error - success
+*/
+@distance: 60;
+@invert-distance: @distance * -1;
+
+@error-color: spin(@base-color, @distance);
+@info-color: spin(@base-color, @invert-distance);
+@warning-color: spin(@base-color, @distance * 2);
+@success-color: spin(@base-color,  @invert-distance * 2);
+
+.color {
+    &-primary8 {
+        background-color: @base-color;
+    }
+    &-error8 {
+        background-color: @error-color;
+    }
+    &-info8 {
+        background-color: @info-color;
+    }
+    &-warning8 {
+        background-color: @warning-color;
+    }
+    &-success8 {
+        background-color: @success-color;
+    }
+}
+
+.palette-item8 {
+    display: inline-block;
+    .color {
+        margin: 0.5em;
+    }
+}
+/*Часть 9
+Изменения базового цвета можно добиться методом применения математических операций ко всем вместе взятым цветовым каналам или к каждому в отдельности. 
+*/
+@base-color0: rgb(110 + 50, 27 * 2, 255 - 30) + 20; /*Вычисление цветовых каналов*/
+
+@distance: 60;
+@error-color0: spin(@base-color0, @distance);
+@info-color0: spin(@base-color0, @distance * -1);
+@warn-color0: spin(@base-color0, @distance * 2);
+@success-color0: spin(@base-color0, @distance * -2);
+
+.color {
+    &-primary9 {
+        background-color: @base-color0;
+    }
+    &-error9 {
+        background-color: @error-color0;
+    }
+    &-info9 {
+        background-color: @info-color0;
+    }
+    &-warning9 {
+        background-color: @warn-color0;
+    }
+    &-success9 {
+        background-color: @success-color0;
+    }
+}
+
+.palette-item9 {
+    display: inline-block;
+    .color {
+        margin: 0 .5em;
+    }
 }
